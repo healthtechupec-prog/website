@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackathon Health-Tech - Aging Well</title>
+  <link rel="stylesheet" href="./src/styles/theme.css">
+  <link rel="stylesheet" href="./src/styles/main.css">
+  <link rel="stylesheet" href="./src/styles/layout.css">
+  <link rel="stylesheet" href="./src/styles/tooltips.css">
+  <link rel="stylesheet" href="./src/styles/dashboard.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f1f8',
+              100: '#e0e1f0',
+              200: '#c5c5df',
+              300: '#a7a7cf',
+              400: '#8F8FC0',
+              500: '#273989',
+              600: '#223080',
+              700: '#1c2870',
+              800: '#172060',
+              900: '#111850',
+            },
+            gray: {
+              50: '#f9fafb',
+              100: '#f3f4f6',
+              200: '#e5e7eb',
+              300: '#d1d5db',
+              400: '#9ca3af',
+              500: '#6b7280',
+              600: '#4b5563',
+              700: '#374151',
+              800: '#1f2937',
+              900: '#111827',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="app">
+    <header id="header"></header>
+    <main id="main-content"></main>
+    <footer id="footer"></footer>
+  </div>
+
+  <!-- All scripts loaded as regular scripts, not modules -->
+  <!-- Services -->
+  <script src="./src/services/api.js"></script>
+  <script src="./src/services/auth.js"></script>
+
+  <!-- Components -->
+  <script src="./src/components/Navbar.js"></script>
+  <script src="./src/components/Footer.js"></script>
+
+  <!-- Views -->
+  <script src="./src/views/Home.js"></script>
+  <script src="./src/views/Program.js"></script>
+  <script src="./src/views/Speakers.js"></script>
+  <script src="./src/views/Information.js"></script>
+  <script src="./src/views/Partners.js"></script>
+  <script src="./src/views/Organizers.js"></script>
+  <script src="./src/views/Login.js"></script>
+  <script src="./src/views/Dashboard.js?v=20260109083000"></script>
+
+  <!-- Core -->
+  <script src="./src/router.js"></script>
+  <script src="./src/main.js"></script>
+
+  <!-- Loading animation -->
+  <style>
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</body>
+
+</html>
