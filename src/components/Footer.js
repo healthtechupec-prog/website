@@ -5,7 +5,7 @@ window.Footer = {
       <div class="container footer-content">
         <div class="footer-col">
           <h3>Hackathon Health-Tech</h3>
-          <p data-i18n="home.hero.date">15-17 Octobre 2025</p>
+          <p data-i18n="home.hero.date">5-6 Février 2026</p>
           <p data-i18n="home.hero.location">Paris, France</p>
         </div>
         <div class="footer-col">
