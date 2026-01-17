@@ -61,10 +61,10 @@ window.OrganizersPage = {
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4 justify-items-center max-w-5xl mx-auto">
               ${[
         { name: 'Pr. Abdelhamid Mellouk', role: 'Resp. département Informatique et Santé (ITS)', initials: 'AM' },
-        { name: 'José Diaz', role: 'Enseignant école d\'ingénieur', initials: 'JD' },
-        { name: 'MCF Thiago Abreu', role: 'Maître de conférences', initials: 'TA' },
+        { name: 'José Diaz', role: 'Enseignant spécialité réseau', initials: 'JD' },
+        { name: 'Thiago Abreu', role: 'Maître de conférences', initials: 'TA' },
         { name: 'Pr. Sara Brofferio', role: 'Resp. département Systèmes d\'information (SI)', initials: 'SB' },
-        { name: 'Dr. Ali Aghaei', role: 'Resp. département Génie biomédical et santé (ISBS)', initials: 'AA' }
+        { name: 'Ali Aghaei', role: 'Resp. département ISBS<br><small>Maître de conférences</small>', initials: 'AA' }
       ].map(member => `
                 <div class="group bg-white/70 backdrop-blur-md border border-gray-200 rounded-xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-blue-300 w-full">
                   <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-3 flex items-center justify-center text-white text-lg font-bold">
@@ -146,10 +146,10 @@ window.OrganizersPage = {
             <div class="grid grid-cols-1 gap-4 justify-items-center max-w-xs mx-auto">
               <div class="group bg-white/70 backdrop-blur-md border border-gray-200 rounded-xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-blue-300 w-full">
                 <div class="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-full mx-auto mb-3 flex items-center justify-center text-white text-lg font-bold">
-                  CT
+                  CZ
                 </div>
-                <h4 class="text-primary-900 font-bold text-sm mb-1">MCF Clémence Tchakarian</h4>
-                <p class="text-gray-500 text-xs">Maître de conférences</p>
+                <h4 class="text-primary-900 font-bold text-sm mb-1">Clémence Zacharie</h4>
+                <p class="text-gray-500 text-xs">Maître de conférences et juriste</p>
               </div>
             </div>
           </div>
@@ -166,9 +166,9 @@ window.OrganizersPage = {
           </div>
           <div class="grid grid-cols-2 md:grid-cols-3 gap-6 justify-items-center max-w-3xl mx-auto">
             ${[
-        { name: 'Ammar Souchon', role: 'Étudiant Ingénieur EPISEN ITS', initials: 'AS' },
+        { name: 'Ammar Souchon', role: 'Élève ingénieur EPISEN ITS', initials: 'AS' },
         { name: 'Abdelhak Heroucha', role: 'Doctorant LISSI', initials: 'AH' },
-        { name: 'Samia Ouchallal', role: 'Étudiante Ingénieur EPISEN ITS', initials: 'SO' }
+        { name: 'Samia Ouchallal', role: 'Élève ingénieur EPISEN ITS', initials: 'SO' }
       ].map(member => `
               <div class="group bg-white/70 backdrop-blur-md border border-gray-200 rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-purple-300 w-full">
                 <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-xl font-bold">
@@ -207,7 +207,7 @@ window.OrganizersPage = {
           <div class="relative z-10 max-w-2xl mx-auto">
             <h2 class="text-4xl font-bold mb-4">Rejoignez l'équipe !</h2>
             <p class="text-white/90 text-lg leading-relaxed mb-8">Vous souhaitez contribuer à l'organisation du Hackathon ? Contactez-nous !</p>
-            <a href="mailto:team@healthtech-hackathon.fr" class="inline-flex items-center gap-2 bg-white text-gray-800 text-lg font-bold py-4 px-10 rounded-full shadow-xl transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-gray-50 hover:shadow-2xl">
+            <a href="mailto:health.tech.upec@gmail.com" class="inline-flex items-center gap-2 bg-white text-gray-800 text-lg font-bold py-4 px-10 rounded-full shadow-xl transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-gray-50 hover:shadow-2xl">
               <span>📧</span> Nous contacter
             </a>
           </div>

@@ -1,6 +1,17 @@
 // Global Home Page
 window.HomePage = {
   render: async () => {
+    const sliderImages = [
+      { src: 'src/images/slider_image_accueil/IMG_2221.jpg', alt: 'Hackathon 1' },
+      { src: 'src/images/slider_image_accueil/IMG_2229.jpg', alt: 'Hackathon 2' },
+      { src: 'src/images/slider_image_accueil/IMG_2234.jpg', alt: 'Hackathon 3' },
+      { src: 'src/images/slider_image_accueil/IMG_2246.jpg', alt: 'Hackathon 4' },
+      { src: 'src/images/slider_image_accueil/IMG_2283.jpg', alt: 'Hackathon 5' },
+      { src: 'src/images/slider_image_accueil/IMG_2956.jpg', alt: 'Hackathon 6' },
+      { src: 'src/images/slider_image_accueil/_DSF0044.jpg', alt: 'Hackathon 7' },
+      { src: 'src/images/slider_image_accueil/lancement hackathon 1.jpg', alt: 'Lancement Hackathon' }
+    ];
+
     return `
       <!-- Hero Section with Video Background -->
       <section class="hero section" style="position: relative; text-align: center; padding: 8rem 0 6rem; overflow: hidden; min-height: 80vh; display: flex; align-items: center;">
@@ -46,6 +57,30 @@ window.HomePage = {
         </div>
       </section>
 
+      <!-- Image Slider Section -->
+      <section class="section" style="background: linear-gradient(135deg, var(--color-primary-50), white); padding: 4rem 0;">
+        <div class="container">
+          <div id="image-slider" style="position: relative; max-width: 900px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+            <div id="slider-track" style="display: flex; transition: transform 0.5s ease-in-out;">
+              ${sliderImages.map((img, i) => `
+                <div class="slide" style="min-width: 100%; position: relative;">
+                  <img src="${img.src}" alt="${img.alt}" style="width: 100%; height: 500px; object-fit: cover;">
+                </div>
+              `).join('')}
+            </div>
+            <!-- Navigation Arrows -->
+            <button id="slider-prev" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 48px; height: 48px; cursor: pointer; font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s;" onmouseover="this.style.background='white'" onmouseout="this.style.background='rgba(255,255,255,0.9)'">❮</button>
+            <button id="slider-next" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 48px; height: 48px; cursor: pointer; font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s;" onmouseover="this.style.background='white'" onmouseout="this.style.background='rgba(255,255,255,0.9)'">❯</button>
+            <!-- Dots -->
+            <div id="slider-dots" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px;">
+              ${sliderImages.map((_, i) => `
+                <span class="slider-dot" data-index="${i}" style="width: 12px; height: 12px; border-radius: 50%; background: ${i === 0 ? 'white' : 'rgba(255,255,255,0.5)'}; cursor: pointer; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></span>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- About Section -->
       <section id="about" class="section container">
         <div style="max-width: 900px; margin: 0 auto; text-align: center;">
@@ -81,7 +116,7 @@ window.HomePage = {
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
           </div>
           <h3 style="margin-bottom: 1rem; font-size: 1.4rem;" data-i18n="home.features.prizes.title">Pitch & Présentation</h3>
-          <p style="color: var(--color-gray-700); line-height: 1.7;" data-i18n="home.features.prizes.text">Les finalistes présentent leur projet devant un Grand Jury au format TedX - capsule vidéo de 10 minutes.</p>
+          <p style="color: var(--color-gray-700); line-height: 1.7;" data-i18n="home.features.prizes.text">Les finalistes présentent leur projet devant un Grand Jury.</p>
         </div>
         
         <div class="card" style="text-align: center;">
@@ -97,12 +132,44 @@ window.HomePage = {
       <section class="section" style="background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-700)); text-align: center; padding: 4rem 0; margin-top: 3rem;">
         <div class="container">
           <h2 style="color: white; font-size: 2.5rem; margin-bottom: 1rem;" data-i18n="home.cta.title">Un événement unique</h2>
-          <p style="color: rgba(255,255,255,0.9); font-size: 1.25rem; margin-bottom: 2rem;" data-i18n="home.cta.text">150 à 200 étudiants réunis pour 36 heures d'innovation intensive.</p>
+          <p style="color: rgba(255,255,255,0.9); font-size: 1.25rem; margin-bottom: 2rem;" data-i18n="home.cta.text">150 à 200 participants réunis pour 36 heures d'innovation intensive.</p>
           <a href="#/program" class="btn" style="background: white; color: var(--color-primary-700); font-size: 1.1rem; padding: 1rem 2.5rem; font-weight: 600;" data-i18n="home.cta.button">
             Découvrir le programme
           </a>
         </div>
       </section>
     `;
+  },
+
+  setup: () => {
+    // Initialize slider
+    const track = document.getElementById('slider-track');
+    const dots = document.querySelectorAll('.slider-dot');
+    const prevBtn = document.getElementById('slider-prev');
+    const nextBtn = document.getElementById('slider-next');
+
+    if (!track) return;
+
+    let currentSlide = 0;
+    const totalSlides = dots.length;
+
+    const goToSlide = (index) => {
+      currentSlide = (index + totalSlides) % totalSlides;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.style.background = i === currentSlide ? 'white' : 'rgba(255,255,255,0.5)';
+      });
+    };
+
+    prevBtn?.addEventListener('click', () => goToSlide(currentSlide - 1));
+    nextBtn?.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.index)));
+    });
+
+    // Auto-advance every 4 seconds
+    setInterval(() => goToSlide(currentSlide + 1), 4000);
   }
 };
+

@@ -1,7 +1,22 @@
 // Global API Service
 window.ApiService = {
-    // Dynamic URL: empty string for same-origin in production, localhost for development
-    baseUrl: window.location.hostname === 'localhost' ? 'http://localhost:8000' : '',
+    // Dynamic URL: 
+    // - file:// protocol → direct to localhost:8000 (opening HTML file directly)
+    // - localhost on common dev ports (3000, 5173, 5500) → localhost:8000 (Vite, Live Server, etc)
+    // - localhost on port 80/8080 or production → /api (nginx proxy)
+    baseUrl: (() => {
+        const isLocalFile = window.location.protocol === 'file:';
+        const port = window.location.port;
+        const devPorts = ['3000', '3001', '5173', '5174', '5500', '5501', '4200', '8888'];
+        const isLocalDevServer = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            && devPorts.includes(port);
+
+        if (isLocalFile || isLocalDevServer) {
+            return 'http://localhost:8000';
+        }
+        // Docker/Production: use /api prefix (nginx reverse proxy)
+        return '/api';
+    })(),
 
     // Get stored token
     getToken() {

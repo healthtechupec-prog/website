@@ -19,7 +19,6 @@ window.InformationPage = {
             </div>
             <p style="font-weight: 600; color: var(--color-gray-800); font-size: 1.1rem;">Université Paris-Est Créteil</p>
             <p style="color: var(--color-gray-600); line-height: 1.7;">Campus de Vitry-sur-Seine<br>122 rue Paul Armangot<br>94400 Vitry-sur-Seine</p>
-            <p style="color: var(--color-gray-600); margin-top: 1rem;"><strong>Hall Chimie</strong> - Accueil et espaces de travail<br><strong>Amphi Chimie</strong> - Présentations et pitchs</p>
           </div>
           
           <!-- Dates Card -->
@@ -42,6 +41,34 @@ window.InformationPage = {
             </div>
           </div>
         </div>
+
+        <!-- Lieux sur le campus -->
+        <div class="card" style="margin-bottom: 3rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), white);">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #8B5CF6, #7C3AED); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+            <h2 style="color: var(--color-primary-700); font-size: 1.5rem; margin: 0;">🏫 Lieux sur le campus</h2>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div style="padding: 1.25rem; background: white; border-radius: 12px; border-left: 4px solid #8B5CF6; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+              <p style="font-weight: 700; color: var(--color-primary-800); margin-bottom: 0.5rem;">🏛️ Hall et Amphi Chimie</p>
+              <p style="color: var(--color-gray-600); font-size: 0.9rem; margin: 0;">Accueil et plénière</p>
+            </div>
+            <div style="padding: 1.25rem; background: white; border-radius: 12px; border-left: 4px solid #10B981; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+              <p style="font-weight: 700; color: var(--color-primary-800); margin-bottom: 0.5rem;">💻 RDC Bâtiment RT</p>
+              <p style="color: var(--color-gray-600); font-size: 0.9rem; margin: 0;">Salles de travail (salles 01 à 019)</p>
+            </div>
+            <div style="padding: 1.25rem; background: white; border-radius: 12px; border-left: 4px solid #F59E0B; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+              <p style="font-weight: 700; color: var(--color-primary-800); margin-bottom: 0.5rem;">🔔 Clocher</p>
+              <p style="color: var(--color-gray-600); font-size: 0.9rem; margin: 0;">Accueil partenaires et QG des coachs</p>
+            </div>
+            <div style="padding: 1.25rem; background: white; border-radius: 12px; border-left: 4px solid #EC4899; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+              <p style="font-weight: 700; color: var(--color-primary-800); margin-bottom: 0.5rem;">🏘️ Hall Bâtiment RT</p>
+              <p style="color: var(--color-gray-600); font-size: 0.9rem; margin: 0;">Village des métiers</p>
+            </div>
+          </div>
+        </div>
         
         <!-- Transport & Map Section -->
         <div class="card" style="margin-bottom: 3rem; overflow: hidden; padding: 0;">
@@ -53,6 +80,13 @@ window.InformationPage = {
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6v6"></path><path d="M16 6v6"></path><path d="M4 9h16"></path><path d="M4 12h16"></path><path d="M6 19h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"></path><circle cx="7" cy="16" r="1"></circle><circle cx="17" cy="16" r="1"></circle></svg>
                 </div>
                 <h2 style="color: var(--color-primary-700); font-size: 1.5rem; margin: 0;">Comment venir ?</h2>
+              </div>
+
+              <!-- Eco message -->
+              <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05)); padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid rgba(16, 185, 129, 0.3);">
+                <p style="margin: 0; color: #047857; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                  🌱 Privilégiez les transports en commun et le covoiturage !
+                </p>
               </div>
               
               <div style="display: flex; flex-direction: column; gap: 1rem;">
@@ -111,12 +145,12 @@ window.InformationPage = {
           <div style="display: grid; gap: 1.5rem;">
             <div class="card">
               <h3 style="color: var(--color-primary-700); margin-bottom: 0.75rem; font-size: 1.1rem;" data-i18n="info.faq.q1">Qui peut participer ?</h3>
-              <p style="color: var(--color-gray-700); line-height: 1.7;" data-i18n="info.faq.a1">Tous les étudiants sont les bienvenus ! Ingénieurs, informaticiens, managers, professionnels de santé, juristes... L'événement réunit 150 à 200 étudiants de profils variés pour former des équipes pluridisciplinaires.</p>
+              <p style="color: var(--color-gray-700); line-height: 1.7;" data-i18n="info.faq.a1">Tous les étudiants sont les bienvenus ! Ingénieurs, informaticiens, managers, professionnels de santé, juristes... L'événement réunit 150 à 200 participants de profils variés pour former des équipes pluridisciplinaires.</p>
             </div>
             
             <div class="card">
               <h3 style="color: var(--color-primary-700); margin-bottom: 0.75rem; font-size: 1.1rem;" data-i18n="info.faq.q2">Quel est le format de l'événement ?</h3>
-              <p style="color: var(--color-gray-700); line-height: 1.7;" data-i18n="info.faq.a2">Un hackathon de 36 heures avec production de Proof of Concept (PoC). Les finalistes présentent leur projet devant un Grand Jury au format TedX (capsule vidéo de 10 minutes).</p>
+              <p style="color: var(--color-gray-700); line-height: 1.7;" data-i18n="info.faq.a2">Un hackathon de 36 heures avec production de Proof of Concept (PoC). Les finalistes présentent leur projet devant un Grand Jury.</p>
             </div>
             
             <div class="card">
@@ -146,7 +180,7 @@ window.InformationPage = {
           <div style="max-width: 600px; margin: 0 auto;">
             <h2 style="color: white; font-size: 2rem; margin-bottom: 1rem;" data-i18n="info.cta.title">Une question ?</h2>
             <p style="color: rgba(255,255,255,0.9); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.7;" data-i18n="info.cta.text">N'hésitez pas à nous contacter pour plus d'informations.</p>
-            <a href="mailto:contact@healthtech-hackathon.fr" class="btn" style="background: white; color: var(--color-primary-700); font-size: 1.1rem; padding: 1rem 2.5rem; font-weight: 600;" data-i18n="info.cta.button">
+            <a href="mailto:health.tech.upec@gmail.com" class="btn" style="background: white; color: var(--color-primary-700); font-size: 1.1rem; padding: 1rem 2.5rem; font-weight: 600;" data-i18n="info.cta.button">
               📧 Nous contacter
             </a>
           </div>
@@ -155,3 +189,4 @@ window.InformationPage = {
     `;
   }
 };
+

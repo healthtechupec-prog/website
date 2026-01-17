@@ -78,6 +78,7 @@ window.DashboardPage = {
       2: [ // Participant
         { id: 'participant-team', icon: 'team', label: 'Mon Équipe' },
         { id: 'participant-deliverable', icon: 'file', label: 'Livrables' },
+        { id: 'participant-ressources', icon: 'download', label: 'Ressources' },
         { id: 'participant-experts', icon: 'users', label: 'Trouver un Expert' },
         { id: 'participant-rdv', icon: 'calendar', label: 'Mes Rendez-vous' },
         { id: 'account-settings', icon: 'settings', label: 'Mon Compte' }
@@ -109,6 +110,7 @@ window.DashboardPage = {
     const icons = {
       users: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
       upload: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>',
+      download: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>',
       team: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
       trash: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>',
       file: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>',
@@ -139,6 +141,7 @@ window.DashboardPage = {
       // Participant sections
       case 'participant-team': return await window.DashboardPage.renderParticipantTeam();
       case 'participant-deliverable': return await window.DashboardPage.renderParticipantDeliverables();
+      case 'participant-ressources': return await window.DashboardPage.renderParticipantRessources();
       case 'participant-experts': return await window.DashboardPage.renderParticipantExperts();
       case 'participant-rdv': return await window.DashboardPage.renderParticipantRdv();
 
@@ -170,6 +173,7 @@ window.DashboardPage = {
       case 'expert-profile': window.DashboardPage.setupExpertProfile(); break;
       case 'expert-disponibilites': window.DashboardPage.setupExpertDisponibilites(); break;
       case 'expert-demandes': window.DashboardPage.setupExpertDemandes(); break;
+      case 'expert-rdv': window.DashboardPage.setupExpertRdv(); break;
       case 'examiner-deliverables': window.DashboardPage.setupExaminerNoting(); break;
       case 'account-settings': window.DashboardPage.setupAccountSettings(); break;
     }
@@ -366,7 +370,7 @@ window.DashboardPage = {
         exportBtn.disabled = true;
         exportBtn.innerHTML = 'Export...';
         try {
-          const response = await fetch('http://localhost:8000/utilisateurs/export-csv', {
+          const response = await fetch(`${window.ApiService.baseUrl}/utilisateurs/export-csv`, {
             headers: { 'Authorization': `Bearer ${window.AuthService.getToken()}` }
           });
           const blob = await response.blob();
@@ -529,9 +533,9 @@ window.DashboardPage = {
           const formData = new FormData();
           formData.append('file', fileInput.files[0]);
 
-          const response = await fetch('http://localhost:8000/utilisateurs/import-csv', {
+          const response = await fetch(`${window.ApiService.baseUrl}/utilisateurs/import-csv`, {
             method: 'POST',
-            headers: { 'Authorization': `Bearer ${window.AuthService.getToken()} ` },
+            headers: { 'Authorization': `Bearer ${window.AuthService.getToken()}` },
             body: formData
           });
 
@@ -887,10 +891,17 @@ window.DashboardPage = {
                 <h4>${d.titre}</h4>
                 <p>${d.description || 'Pas de description'}</p>
                 ${d.lien_fichier ? (d.lien_fichier.startsWith('/files/livrables/')
-          ? `<a href="http://localhost:8000${d.lien_fichier}" target="_blank" class="btn btn-outline">📁 Télécharger</a>`
+          ? `<a href="${window.ApiService.baseUrl}${d.lien_fichier}" target="_blank" class="btn btn-outline">📁 Télécharger</a>`
           : `<a href="${d.lien_fichier}" target="_blank" class="btn btn-outline">🔗 Voir le lien</a>`
         ) : ''}
                 <small class="text-muted">Déposé le ${new Date(d.date_depot).toLocaleDateString('fr-FR')}</small>
+                
+                <!-- Commentaires examinateurs -->
+                <div class="examiner-comments" id="comments-${d.id_livrable}" style="margin-top: 1rem;">
+                  <button class="btn btn-sm btn-outline" onclick="window.DashboardPage.loadLivrableComments(${d.id_livrable})" style="font-size: 0.85rem;">
+                    💬 Voir les retours des examinateurs
+                  </button>
+                </div>
               </div>
             </div>
           `).join('')}
@@ -901,6 +912,108 @@ window.DashboardPage = {
       return `<div class="error-message">Erreur: ${error.message}</div>`;
     }
   },
+
+  // Load and display examiner comments for a livrable
+  loadLivrableComments: async (livrableId) => {
+    const container = document.getElementById(`comments-${livrableId}`);
+    if (!container) return;
+
+    container.innerHTML = '<div class="info-message">Chargement des retours...</div>';
+
+    try {
+      const notes = await window.ApiService.get(`/notes/livrable/${livrableId}`);
+
+      if (notes.length === 0) {
+        container.innerHTML = '<p class="text-muted" style="font-size: 0.9rem; padding: 0.5rem; background: #f9fafb; border-radius: 6px;">Aucun retour d\'examinateur pour l\'instant.</p>';
+        return;
+      }
+
+      container.innerHTML = `
+        <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); padding: 1rem; border-radius: 8px; border-left: 4px solid #0284c7;">
+          <h5 style="margin: 0 0 0.75rem 0; color: #0369a1; font-size: 0.95rem;">📋 Retours des examinateurs (${notes.length})</h5>
+          ${notes.map(note => `
+            <div style="background: white; padding: 0.75rem; border-radius: 6px; margin-bottom: 0.5rem; font-size: 0.9rem;">
+              ${note.valeur ? `<span style="background: #0284c7; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: bold; margin-right: 0.5rem;">Note: ${note.valeur}/20</span>` : ''}
+              ${note.commentaire ? `<p style="margin: 0.5rem 0 0 0; color: #374151;">${note.commentaire}</p>` : '<p style="margin: 0.5rem 0 0 0; color: #9ca3af; font-style: italic;">Pas de commentaire</p>'}
+            </div>
+          `).join('')}
+        </div>
+      `;
+    } catch (error) {
+      container.innerHTML = `<p class="text-muted" style="font-size: 0.9rem;">Les retours ne sont pas encore disponibles.</p>`;
+    }
+  },
+
+  // Resources section for teams
+  renderParticipantRessources: async () => {
+    try {
+      const resources = await window.ApiService.get('/ressources/');
+
+      const getFileIcon = (ext) => {
+        const icons = {
+          '.pdf': '📄',
+          '.docx': '📝',
+          '.doc': '📝',
+          '.pptx': '📊',
+          '.ppt': '📊',
+          '.xlsx': '📈',
+          '.xls': '📈',
+          '.zip': '📦',
+          '.png': '🖼️',
+          '.jpg': '🖼️',
+          '.jpeg': '🖼️'
+        };
+        return icons[ext] || '📁';
+      };
+
+      const formatSize = (bytes) => {
+        if (bytes < 1024) return bytes + ' o';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' Ko';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' Mo';
+      };
+
+      return `
+        <div class="section-header">
+          <h2>📚 Ressources</h2>
+          <span class="badge">${resources.length} fichier${resources.length > 1 ? 's' : ''}</span>
+        </div>
+        
+        <div class="info-box" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid #16a34a;">
+          <p style="margin: 0; color: #166534;">
+            📖 Retrouvez ici les documents et ressources mis à disposition par les organisateurs pour vous aider pendant le hackathon.
+          </p>
+        </div>
+        
+        ${resources.length > 0 ? `
+          <div class="cards-grid">
+            ${resources.map(r => `
+              <div class="card">
+                <div class="card-body" style="display: flex; align-items: center; gap: 1rem;">
+                  <span style="font-size: 2rem;">${getFileIcon(r.extension)}</span>
+                  <div style="flex: 1; min-width: 0;">
+                    <h4 style="margin: 0 0 0.25rem 0; font-size: 1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${r.filename}</h4>
+                    <small class="text-muted">${formatSize(r.size)}</small>
+                  </div>
+                  <a href="${r.download_url}" class="btn btn-primary btn-sm" download>
+                    ⬇️ Télécharger
+                  </a>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : `
+          <div class="text-center" style="padding: 3rem; color: #6b7280;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📂</div>
+            <p>Aucune ressource disponible pour le moment.</p>
+            <p class="text-muted">Les organisateurs ajouteront des documents ici pendant l'événement.</p>
+          </div>
+        `}
+      `;
+    } catch (error) {
+      return `<div class="error-message">Erreur lors du chargement des ressources: ${error.message}</div>`;
+    }
+  },
+
 
   setupDeliverableForm: () => {
     const form = document.getElementById('deliverable-form');
@@ -954,7 +1067,7 @@ window.DashboardPage = {
           formData.append('file', fileInput.files[0]);
 
           const token = window.AuthService.getToken();
-          const response = await fetch('http://localhost:8000/livrables/upload', {
+          const response = await fetch(`${window.ApiService.baseUrl}/livrables/upload`, {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`
@@ -1197,80 +1310,56 @@ window.DashboardPage = {
             ${dispos.length > 0 ? `
               <ul style="list-style: none; padding: 0;">
                 ${dispos.map(d => `
-                  <li style="padding: 0.5rem; background: #f3f4f6; margin-bottom: 0.5rem; border-radius: 8px;">
-                    📆 ${new Date(d.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
-                    de ${d.heure_debut} à ${d.heure_fin}
-                    <button class="btn btn-sm btn-primary btn-book-rdv" 
-                      data-expert-id="${expertId}" 
-                      data-date="${d.date}" 
-                      data-heure="${d.heure_debut}"
-                      style="margin-left: 1rem;">
-                      Prendre RDV
-                    </button>
+                  <li style="padding: 0.75rem; background: #f3f4f6; margin-bottom: 0.75rem; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                      <span>
+                        📆 ${new Date(d.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
+                        de ${d.heure_debut} à ${d.heure_fin}
+                      </span>
+                      <button class="btn btn-sm btn-primary btn-confirm-rdv" 
+                        data-expert-id="${expertId}" 
+                        data-dispo-id="${d.id_disponibilite}"
+                        data-date="${d.date}" 
+                        data-heure="${d.heure_debut}">
+                        ✅ Réserver ce créneau
+                      </button>
+                    </div>
                   </li>
                 `).join('')}
               </ul>
             ` : '<p class="text-muted">Aucune disponibilité renseignée</p>'}
             
-            <hr>
-            <h4>Ou choisir une date personnalisée</h4>
-            <form id="custom-rdv-form">
-              <input type="hidden" id="rdv-expert-id" value="${expertId}">
-              <div class="form-group">
-                <label for="rdv-date">Date et heure</label>
-                <input type="datetime-local" id="rdv-date" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="rdv-comment">Commentaire</label>
-                <textarea id="rdv-comment" class="form-control" rows="2"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Demander le RDV</button>
-            </form>
             <div id="rdv-modal-result" style="margin-top: 1rem;"></div>
           `;
 
-          // Book RDV buttons
-          document.querySelectorAll('.btn-book-rdv').forEach(bookBtn => {
-            bookBtn.addEventListener('click', async (evt) => {
+          // Direct booking from availability slot
+          document.querySelectorAll('.btn-confirm-rdv').forEach(confirmBtn => {
+            confirmBtn.addEventListener('click', async (evt) => {
               const expId = evt.target.dataset.expertId;
+              const dispoId = evt.target.dataset.dispoId;
               const date = evt.target.dataset.date;
               const heure = evt.target.dataset.heure;
               const dateTime = `${date}T${heure}`;
 
+              evt.target.disabled = true;
+              evt.target.textContent = 'Réservation...';
+
               try {
-                await window.ApiService.post('/rendezvous/demander', {
+                await window.ApiService.post('/rendezvous/reserver', {
                   id_expert: parseInt(expId),
                   date: dateTime,
-                  commentaire: 'Basé sur disponibilité'
+                  id_disponibilite: parseInt(dispoId)
                 });
-                document.getElementById('rdv-modal-result').innerHTML = '<div class="success-message">Demande envoyée !</div>';
+                document.getElementById('rdv-modal-result').innerHTML = '<div class="success-message">✅ Rendez-vous confirmé ! L\'expert vous communiquera la salle ou le lien.</div>';
+                // Remove the booked slot from UI
+                evt.target.closest('li').remove();
               } catch (err) {
                 document.getElementById('rdv-modal-result').innerHTML = `<div class="error-message">Erreur: ${err.message}</div>`;
+                evt.target.disabled = false;
+                evt.target.textContent = '✅ Réserver ce créneau';
               }
             });
           });
-
-          // Custom form
-          const customForm = document.getElementById('custom-rdv-form');
-          if (customForm) {
-            customForm.addEventListener('submit', async (evt) => {
-              evt.preventDefault();
-              const expId = document.getElementById('rdv-expert-id').value;
-              const date = document.getElementById('rdv-date').value;
-              const comment = document.getElementById('rdv-comment').value;
-
-              try {
-                await window.ApiService.post('/rendezvous/demander', {
-                  id_expert: parseInt(expId),
-                  date: date,
-                  commentaire: comment
-                });
-                document.getElementById('rdv-modal-result').innerHTML = '<div class="success-message">Demande envoyée !</div>';
-              } catch (err) {
-                document.getElementById('rdv-modal-result').innerHTML = `<div class="error-message">Erreur: ${err.message}</div>`;
-              }
-            });
-          }
         } catch (error) {
           modalBody.innerHTML = `<div class="error-message">Erreur: ${error.message}</div>`;
         }
@@ -1280,6 +1369,7 @@ window.DashboardPage = {
 
   // ==================== EXPERT SECTIONS ====================
   renderExpertProfile: async () => {
+
     const user = window.AuthService.getCurrentUser();
 
     // Charger le profil existant
@@ -1510,7 +1600,7 @@ window.DashboardPage = {
 
       const statusLabels = {
         'en_attente': '🟡 En attente',
-        'valide': '🟢 Validé',
+        'valide': '🟢 Confirmé',
         'refuse': '🔴 Refusé'
       };
 
@@ -1525,24 +1615,106 @@ window.DashboardPage = {
           <h2>Mes Rendez-vous</h2>
           <span class="badge">${rdvs.length} RDV</span>
         </div>
+        
+        <div class="info-box" style="background: linear-gradient(135deg, #dbeafe, #bfdbfe); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid #3b82f6;">
+          <p style="margin: 0; color: #1e40af;">
+            📍 <strong>Ajoutez la salle ou le lien Zoom/Teams</strong> pour vos rendez-vous confirmés afin que les équipes sachent où vous rejoindre.
+          </p>
+        </div>
+        
         <div class="cards-grid">
-          ${rdvs.map(r => `
+          ${rdvs.filter(r => r.statut === 'valide').map(r => `
             <div class="card" style="border-left: 4px solid ${statusColors[r.statut] || '#ccc'};">
               <div class="card-body">
                 <h4>🏢 ${r.equipe_nom || 'Équipe #' + r.id_equipe}</h4>
                 <p><strong>📅 Date:</strong> ${new Date(r.date).toLocaleString('fr-FR')}</p>
                 <p><strong>Statut:</strong> ${statusLabels[r.statut] || r.statut}</p>
-                ${r.commentaire ? `<p>💬 ${r.commentaire}</p>` : ''}
+                
+                <div class="rdv-comment-section" id="rdv-comment-${r.id_rdv}">
+                  ${r.commentaire
+          ? `<div style="background: #f0fdf4; padding: 0.75rem; border-radius: 8px; margin-top: 0.5rem;">
+                        <strong>📍 Lieu:</strong> ${r.commentaire}
+                        <button class="btn btn-sm btn-outline btn-edit-rdv-comment" data-id="${r.id_rdv}" style="margin-left: 0.5rem;">✏️ Modifier</button>
+                       </div>`
+          : `<button class="btn btn-sm btn-primary btn-add-rdv-comment" data-id="${r.id_rdv}" style="margin-top: 0.5rem;">
+                        📍 Ajouter salle/lien
+                       </button>`
+        }
+                </div>
+                
+                <div class="edit-comment-form" id="edit-form-${r.id_rdv}" style="display: none; margin-top: 0.75rem; padding: 0.75rem; background: #f3f4f6; border-radius: 8px;">
+                  <div class="form-group" style="margin-bottom: 0.5rem;">
+                    <input type="text" class="form-control rdv-comment-input" id="comment-input-${r.id_rdv}" 
+                      value="${r.commentaire || ''}" 
+                      placeholder="Ex: Salle 012, https://teams.microsoft.com/...">
+                  </div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-sm btn-success btn-save-rdv-comment" data-id="${r.id_rdv}">💾 Enregistrer</button>
+                    <button class="btn btn-sm btn-outline btn-cancel-edit" data-id="${r.id_rdv}">Annuler</button>
+                  </div>
+                </div>
               </div>
             </div>
           `).join('')}
-          ${rdvs.length === 0 ? '<p class="text-muted">Aucun rendez-vous planifié</p>' : ''}
+          ${rdvs.filter(r => r.statut === 'valide').length === 0 ? '<p class="text-muted">Aucun rendez-vous confirmé</p>' : ''}
         </div>
+        
+        ${rdvs.filter(r => r.statut !== 'valide').length > 0 ? `
+          <h3 style="margin-top: 2rem;">Autres rendez-vous</h3>
+          <div class="cards-grid">
+            ${rdvs.filter(r => r.statut !== 'valide').map(r => `
+              <div class="card" style="border-left: 4px solid ${statusColors[r.statut] || '#ccc'}; opacity: 0.7;">
+                <div class="card-body">
+                  <h4>🏢 ${r.equipe_nom || 'Équipe #' + r.id_equipe}</h4>
+                  <p><strong>📅 Date:</strong> ${new Date(r.date).toLocaleString('fr-FR')}</p>
+                  <p><strong>Statut:</strong> ${statusLabels[r.statut] || r.statut}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
       `;
     } catch (error) {
       return `<div class="error-message">Erreur: ${error.message}</div>`;
     }
   },
+
+  setupExpertRdv: () => {
+    // Add comment buttons
+    document.querySelectorAll('.btn-add-rdv-comment, .btn-edit-rdv-comment').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const rdvId = e.target.dataset.id;
+        document.getElementById(`edit-form-${rdvId}`).style.display = 'block';
+      });
+    });
+
+    // Cancel edit buttons
+    document.querySelectorAll('.btn-cancel-edit').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const rdvId = e.target.dataset.id;
+        document.getElementById(`edit-form-${rdvId}`).style.display = 'none';
+      });
+    });
+
+    // Save comment buttons
+    document.querySelectorAll('.btn-save-rdv-comment').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const rdvId = e.target.dataset.id;
+        const comment = document.getElementById(`comment-input-${rdvId}`).value;
+
+        try {
+          await window.ApiService.put(`/rendezvous/${rdvId}/commentaire`, {
+            commentaire: comment
+          });
+          // Refresh
+          document.querySelector('[data-section="expert-rdv"]').click();
+        } catch (error) {
+          alert('Erreur: ' + error.message);
+        }
+      });
+    });
+  },
+
 
   // ==================== EXAMINER SECTIONS ====================
   renderExaminerDeliverables: async () => {
