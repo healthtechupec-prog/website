@@ -19,7 +19,9 @@ window.PartnersPage = {
           </div>
           <div class="flex justify-center">
             <div class="group relative w-80 bg-white/80 backdrop-blur-md border-2 border-gray-300 rounded-3xl p-10 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-400/30">
-              <img src="src/images/logos/VYV.jpeg" alt="Groupe VYV" class="h-32 w-full object-contain mb-6 transition-transform duration-300 group-hover:scale-110">
+              <a href="https://www.groupe-vyv.fr/" target="_blank" rel="noopener noreferrer" aria-label="Site Groupe VYV">
+                <img src="src/images/logos/VYV.jpeg" alt="Groupe VYV" class="h-32 w-full object-contain mb-6 transition-transform duration-300 group-hover:scale-110">
+              </a>
               <h3 class="text-primary-900 text-2xl font-bold mb-2">Groupe VYV</h3>
               <p class="text-gray-600">Mutuelle santé et prévoyance</p>
             </div>
@@ -37,24 +39,29 @@ window.PartnersPage = {
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center max-w-4xl mx-auto">
             <div class="group relative w-full bg-white/80 backdrop-blur-md border-2 border-yellow-300 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-400/20">
-              <img src="src/images/logos/CMQ.png" onerror="this.src='src/images/logos/CMQ.jpg'" alt="CMQ" class="h-24 w-full object-contain mb-6 transition-transform duration-300 group-hover:scale-110">
+              <a href="https://www.education.gouv.fr/campus-des-metiers-et-des-qualifications-41696" target="_blank" rel="noopener noreferrer" aria-label="Site CMQ">
+                <img src="src/images/logos/CMQ.png" onerror="this.src='src/images/logos/CMQ.jpg'" alt="CMQ" class="h-24 w-full object-contain mb-6 transition-transform duration-300 group-hover:scale-110">
+              </a>
               <h3 class="text-primary-900 text-xl font-bold mb-2">CMQ</h3>
               <p class="text-gray-600 text-sm">Campus des Métiers et Qualifications</p>
             </div>
+
             <div class="group relative w-full bg-white/80 backdrop-blur-md border-2 border-yellow-300 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-400/20">
-              <img src="src/images/logos/NUMIA.png" alt="CFA NUMIA" class="h-24 w-full object-contain mb-6 transition-transform duration-300 group-hover:scale-110">
+              <a href="https://www.cfa-numia.fr/" target="_blank" rel="noopener noreferrer" aria-label="Site CFA NUMIA">
+                <img src="src/images/logos/NUMIA.png" alt="CFA NUMIA" class="h-24 w-full object-contain mb-6 transition-transform duration-300 group-hover:scale-110">
+              </a>
               <h3 class="text-primary-900 text-xl font-bold mb-2">CFA NUMIA</h3>
               <p class="text-gray-600 text-sm">Centre de Formation des Apprentis</p>
             </div>
           </div>
         </div>
 
-        <!-- Iron Partners -->
-        <div class="partner-tier iron mb-16">
+        <!-- Silver Partners -->
+        <div class="partner-tier silver mb-16">
           <div class="text-center mb-10">
-            <div class="inline-block px-10 py-3 rounded-full bg-gradient-to-br from-slate-500 via-slate-400 to-slate-600 shadow-xl border border-slate-400">
-              <h2 class="text-white text-xl font-bold uppercase tracking-widest flex items-center gap-3">
-                <span class="text-3xl">⚙️</span> Iron
+            <div class="inline-block px-10 py-3 rounded-full bg-gradient-to-br from-gray-400 via-gray-200 to-gray-500 shadow-xl border border-gray-300">
+              <h2 class="text-gray-900 text-xl font-bold uppercase tracking-widest flex items-center gap-3">
+                <span class="text-3xl">🥈</span> Silver
               </h2>
             </div>
           </div>
@@ -93,15 +100,25 @@ window.PartnersPage = {
             </div>
           </div>
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center max-w-5xl mx-auto">
-            ${['UPEC', 'EPISEN', 'IUT', 'SANTE', 'DROIT', 'IAE'].map(name => `
+            ${[
+              { key: 'UPEC',  href: 'https://www.u-pec.fr/' },
+              { key: 'EPISEN', href: 'https://episen.u-pec.fr/' },
+              { key: 'IUT', href: 'https://iut.u-pec.fr/' },
+              { key: 'SANTE', href: 'https://sante.u-pec.fr/' },
+              { key: 'DROIT', href: 'https://droit.u-pec.fr/' },
+              { key: 'IAE', href: 'https://iae.u-pec.fr/' },
+            ].map(({ key, href }) => `
               <div class="group relative w-full bg-white/70 backdrop-blur-md border border-gray-300 rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary-400">
-                <img src="src/images/logos/${name}.png" onerror="this.src='src/images/logos/${name}.jpg'" alt="${name}" class="h-16 w-full object-contain mb-4 transition-transform duration-300 group-hover:scale-110">
-                <p class="text-primary-900 font-semibold text-sm">${name === 'UPEC' ? 'Université Paris-Est Créteil' :
-        name === 'SANTE' ? 'Faculté de Santé' :
-          name === 'DROIT' ? 'Faculté de Droit' :
-            name === 'IUT' ? 'IUT de Créteil-Vitry' :
-              name
-      }</p>
+                <a href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Site ${key}">
+                  <img src="src/images/logos/${key}.png" onerror="this.src='src/images/logos/${key}.jpg'" alt="${key}" class="h-16 w-full object-contain mb-4 transition-transform duration-300 group-hover:scale-110">
+                </a>
+                <p class="text-primary-900 font-semibold text-sm">${
+                  key === 'UPEC' ? 'Université Paris-Est Créteil' :
+                  key === 'SANTE' ? 'Faculté de Santé' :
+                  key === 'DROIT' ? 'Faculté de Droit' :
+                  key === 'IUT' ? 'IUT de Créteil-Vitry' :
+                  key
+                }</p>
               </div>
             `).join('')}
           </div>
