@@ -56,7 +56,7 @@ window.PartnersPage = {
             </div>
           </div>
           <div class="flex justify-center">
-            <a href="https://www.cfanumia.fr/" target="_blank" rel="noopener" class="group relative w-72 bg-white/80 backdrop-blur-md border-2 border-gray-300 rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-400/20" style="text-decoration: none;">
+            <a href="https://www.cfa-numia.fr/" target="_blank" rel="noopener" class="group relative w-72 bg-white/80 backdrop-blur-md border-2 border-gray-300 rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-400/20" style="text-decoration: none;">
               <img src="src/images/logos/NUMIA.png" alt="CFA NUMIA" class="h-20 w-full object-contain mb-4 transition-transform duration-300 group-hover:scale-110">
               <h3 class="text-primary-900 text-lg font-bold mb-2">CFA NUMIA</h3>
               <p class="text-gray-600 text-sm">Centre de Formation des Apprentis</p>
@@ -128,5 +128,6 @@ window.PartnersPage = {
     `;
   }
 };
+
 
 
