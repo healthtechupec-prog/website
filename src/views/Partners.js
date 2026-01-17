@@ -37,7 +37,7 @@ window.PartnersPage = {
             </div>
           </div>
           <div class="flex justify-center">
-            <a href="https://www.cmq-sante-autonomie.fr/" target="_blank" rel="noopener" class="group relative w-80 bg-white/80 backdrop-blur-md border-2 border-yellow-300 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-400/20" style="text-decoration: none;">
+            <a href="https://www.campus-sante-autonomie.fr/" target="_blank" rel="noopener" class="group relative w-80 bg-white/80 backdrop-blur-md border-2 border-yellow-300 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-400/20" style="text-decoration: none;">
               <img src="src/images/logos/CMQ.png" onerror="this.src='src/images/logos/CMQ.jpg'" alt="CMQ" class="h-24 w-full object-contain mb-6 transition-transform duration-300 group-hover:scale-110">
               <h3 class="text-primary-900 text-xl font-bold mb-2">CMQ</h3>
               <p class="text-gray-600 text-sm">Campus des Métiers et Qualifications</p>
@@ -128,4 +128,5 @@ window.PartnersPage = {
     `;
   }
 };
+
 
