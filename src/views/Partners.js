@@ -45,14 +45,6 @@ window.PartnersPage = {
               <h3 class="text-primary-900 text-xl font-bold mb-2">CMQ</h3>
               <p class="text-gray-600 text-sm">Campus des Métiers et Qualifications</p>
             </div>
-
-            <div class="group relative w-full bg-white/80 backdrop-blur-md border-2 border-yellow-300 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-400/20">
-              <a href="https://www.cfa-numia.fr/" target="_blank" rel="noopener noreferrer" aria-label="Site CFA NUMIA">
-                <img src="src/images/logos/NUMIA.png" alt="CFA NUMIA" class="h-24 w-full object-contain mb-6 transition-transform duration-300 group-hover:scale-110">
-              </a>
-              <h3 class="text-primary-900 text-xl font-bold mb-2">CFA NUMIA</h3>
-              <p class="text-gray-600 text-sm">Centre de Formation des Apprentis</p>
-            </div>
           </div>
         </div>
 
@@ -65,8 +57,17 @@ window.PartnersPage = {
               </h2>
             </div>
           </div>
-          <div class="flex justify-center gap-6">
-            <div class="w-48 h-32 bg-white/40 border-2 border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center text-gray-400 transition-all duration-300 hover:border-primary-400 hover:bg-white/60">
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center max-w-4xl mx-auto">
+            <div class="group relative w-full bg-white/80 backdrop-blur-md border-2 border-gray-300 rounded-2xl p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-400/20">
+              <a href="https://www.cfa-numia.fr/" target="_blank" rel="noopener noreferrer" aria-label="Site CFA NUMIA">
+                <img src="src/images/logos/NUMIA.png" alt="CFA NUMIA" class="h-24 w-full object-contain mb-6 transition-transform duration-300 group-hover:scale-110">
+              </a>
+              <h3 class="text-primary-900 text-xl font-bold mb-2">CFA NUMIA</h3>
+              <p class="text-gray-600 text-sm">Centre de Formation des Apprentis</p>
+            </div>
+
+            <div class="w-full h-40 bg-white/40 border-2 border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center text-gray-400 transition-all duration-300 hover:border-primary-400 hover:bg-white/60">
               <p class="font-semibold text-sm">+ Partenaires</p>
               <p class="text-xs">à venir</p>
             </div>
@@ -101,7 +102,7 @@ window.PartnersPage = {
           </div>
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center max-w-5xl mx-auto">
             ${[
-              { key: 'UPEC',  href: 'https://www.u-pec.fr/' },
+              { key: 'UPEC', href: 'https://www.u-pec.fr/' },
               { key: 'EPISEN', href: 'https://episen.u-pec.fr/' },
               { key: 'IUT', href: 'https://iut.u-pec.fr/' },
               { key: 'SANTE', href: 'https://sante.u-pec.fr/' },
